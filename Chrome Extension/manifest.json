@@ -7,15 +7,15 @@
       "default_icon": "icon-128.png",
       "default_popup": "popup.html"
    },
-   "description": "In Development",
+   "description": "Chrome Extension wallet for Bitcoin and Counterparty Assets",
    "icons": {
       "128": "icon-128.png",
       "16": "icon-16.png",
       "48": "icon-48.png"
    },
    "manifest_version": 2,
-   "name": "LTB Companion Wallet",
+   "name": "XCP Chrome Wallet",
    "permissions": [ "storage", "http://*/", "clipboardWrite", "clipboardRead" ],
-   "short_name": "LTB Companion Wallet",
+   "short_name": "XCP Chrome Wallet",
    "version": "0.1.1"
 }
