@@ -21,7 +21,7 @@ $( document ).ready(function() {
     
     //on open
     var manifest = chrome.runtime.getManifest();
-    $("#nameversion").html("LTB Companion Wallet v" + manifest.version);
+    $("#nameversion").html("XCP Chrome Wallet v" + manifest.version);
     
        var JsonFormatter = {
         stringify: function (cipherParams) {
@@ -224,7 +224,7 @@ $( document ).ready(function() {
     
   $('#switchtoxcp').click(function ()
   {
-      $(".currenttoken").html("LTBCOIN");     
+      $(".currenttoken").html("XCP");     
       var pubkey = $("#xcpaddress").html();
       getPrimaryBalance(pubkey);
       $('#allTabs a:first').tab('show');
@@ -395,6 +395,8 @@ $( document ).ready(function() {
                             $("#sendtokenbutton").html("Sending...");
                             
                             sendXCP(pubkey, sendtoaddress, currenttoken, sendtoamount, btc_total, msig_total, minersfee, mnemonic); 
+                            
+                            //console.log(sendtoamount);
                             
                             //setUnconfirmed(pubkey, currenttoken, sendtoamount);
                             

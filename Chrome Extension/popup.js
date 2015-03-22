@@ -127,6 +127,23 @@ function getPrimaryBalanceXCP(pubkey, currenttoken) {
 //        });
     //console.log(pubkey);
     //console.log(currenttoken);
+
+if (currenttoken == "XCP") {
+    
+    var source_html = "http://xcp.blockscan.com/api2?module=address&action=balance&btc_address="+pubkey+"&asset="+currenttoken;
+    
+    $.getJSON( source_html, function( data ) {  
+        var assetbalance = parseFloat(data.data[0].balance) + parseFloat(data.data[0].unconfirmed_balance); 
+        $("#isdivisible").html("yes");
+    
+        $("#xcpbalance").html("<span id='currentbalance'>" + assetbalance + "</span><span class='unconfirmedbal'></span><br><div style='font-size: 22px; font-weight: bold;'><span id='currenttoken'>" + currenttoken + "</span>");
+        $('#assetbalhide').html(assetbalance);
+        
+        getRate(assetbalance, pubkey, currenttoken);
+        
+    });
+    
+} else {  
     
     
     var source_html = "https://counterpartychain.io/api/balances/"+pubkey;
@@ -162,6 +179,8 @@ function getPrimaryBalanceXCP(pubkey, currenttoken) {
         });
                     
     });
+    
+}
     
     if (typeof assetbalance === 'undefined') {
             $("#xcpbalance").html("<span id='currentbalance'>0</span><span class='unconfirmedbal'></span><br><div style='font-size: 22px; font-weight: bold;'>" + currenttoken + "</div>");
@@ -213,56 +232,48 @@ function getPrimaryBalance(pubkey){
 
 function getRate(assetbalance, pubkey, currenttoken){
     
-    if ($("#ltbPrice").html() == "...") {
-    
-    $.getJSON( "http://joelooney.org/ltbcoin/ltb.php", function( data ) {
-  
-        var ltbprice = 1 / parseFloat(data.usd_ltb);     
+//    if ($("#ltbPrice").html() == "...") {
+//    
+//    $.getJSON( "http://joelooney.org/ltbcoin/ltb.php", function( data ) {
+//  
+//        var ltbprice = 1 / parseFloat(data.usd_ltb);     
+//        
+//        $("#ltbPrice").html(ltbprice.toFixed(0));
+//        
+//            
+//        if (currenttoken == "XCP") {
+//            var usdValue = parseFloat(data.usd_ltb) * parseFloat(assetbalance);
+//        
+//            $("#xcpfiatValue").html(usdValue.toFixed(2)); 
+//            $("#switchtoxcp").hide();
+//            $("#fiatvaluebox").show();
+//        } else {
+//            $("#fiatvaluebox").hide();
+//            $("#switchtoxcp").show();
+//        }
+//        
+//        
+//    });
+//    
+//    } else {
         
-        $("#ltbPrice").html(ltbprice.toFixed(0));
-        
-            
-        if (currenttoken == "LTBCOIN") {
-            var usdValue = parseFloat(data.usd_ltb) * parseFloat(assetbalance);
-        
-            $("#xcpfiatValue").html(usdValue.toFixed(2)); 
+        if (currenttoken == "XCP") {
+//            var ltbrate = $("#ltbPrice").html();
+//            var usdrate = 1 / parseFloat(ltbrate);
+//            var usdValue = usdrate * parseFloat(assetbalance);
+//            $("#xcpfiatValue").html(usdValue.toFixed(2));
             $("#switchtoxcp").hide();
-            $("#fiatvaluebox").show();
+//            $("#fiatvaluebox").show();
         } else {
-            $("#fiatvaluebox").hide();
-            $("#switchtoxcp").show();
-        }
-        
-        
-    });
-    
-    } else {
-        
-        if (currenttoken == "LTBCOIN") {
-            var ltbrate = $("#ltbPrice").html();
-            var usdrate = 1 / parseFloat(ltbrate);
-            var usdValue = usdrate * parseFloat(assetbalance);
-            $("#xcpfiatValue").html(usdValue.toFixed(2));
-            $("#switchtoxcp").hide();
-            $("#fiatvaluebox").show();
-        } else if (currenttoken == "BTC") {
-            
-            //var btcrate = $("#btcPrice").html();
-            //var usdValue = btcrate * parseFloat(assetbalance);
-            //$("#xcpfiatValue").html(usdValue.toFixed(2));
-            
-            $("#fiatvaluebox").hide();
-            $("#switchtoxcp").show();
-            
-            
-        } else {
-            $("#fiatvaluebox").hide();
+//            $("#fiatvaluebox").hide();
             $("#switchtoxcp").show();
         }        
         
         
         
-    }
+//    }
+    
+    
     
     getBTCBalance(pubkey);
 }
@@ -383,9 +394,9 @@ function manualPassphrase() {
 
 function loadAssets(add) {
     
-    //var source_html = "http://xcp.blockscan.com/api2?module=address&action=balance&btc_address="+add;
+    var source_html = "http://xcp.blockscan.com/api2?module=address&action=balance&btc_address="+add;
     
-    var source_html = "https://counterpartychain.io/api/balances/"+add;
+    //var source_html = "https://counterpartychain.io/api/balances/"+add;
     
     
     
@@ -398,7 +409,7 @@ function loadAssets(add) {
         
         $.each(data.data, function(i, item) {
             var assetname = data.data[i].asset;
-            var assetbalance = data.data[i].amount;
+            var assetbalance = data.data[i].balance; //.amount for cpchain
             if (assetbalance.indexOf(".")==-1) {var divisible = "no";} else {var divisible = "yes";}
             
             if (assetname.charAt(0) != "A") {
@@ -513,7 +524,7 @@ function timeConverter(UNIX_timestamp){
 
 function loadTransactions(add) {
 
-    //{"address":"1CWpnJVCQ2hHtehW9jhVjT2Ccj9eo5dc2E","asset":"LTBCOIN","block":348621,"quantity":"-50000.00000000","status":"valid","time":1426978699,"tx_hash":"dc34bbbf3fa02619b2e086a3cde14f096b53dc91f49f43b697aaee3fdec22e86"}
+    //{"address":"1CWpnJVCQ2hHtehW9jhVjT2Ccj9eo5dc2E","asset":"XCP","block":348621,"quantity":"-50000.00000000","status":"valid","time":1426978699,"tx_hash":"dc34bbbf3fa02619b2e086a3cde14f096b53dc91f49f43b697aaee3fdec22e86"}
 
     var source_html = "https://counterpartychain.io/api/transactions/"+add;
     
