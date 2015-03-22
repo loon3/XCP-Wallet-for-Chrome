@@ -104,7 +104,7 @@ $( document ).ready(function() {
     $('#assettransactiontoggle').click(function ()
         { 
             if ($('#assettransactiontoggle').html() == "View Assets") {
-                $('#assettransactiontoggle').html("View Transaction History");
+                $('#assettransactiontoggle').html("View Asset Transaction History");
                 $('#alltransactions').hide();
                 $('#allassets').show();
             } else {
