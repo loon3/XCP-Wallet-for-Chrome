@@ -341,6 +341,11 @@ $( document ).ready(function() {
             $("#sendtokenbutton").html("Sending...");
             $("#sendtokenbutton").prop('disabled', true);
              
+            var btcbalance = $("#btcbalhide").html();
+            var btcbal = parseFloat(btcbalance);
+            
+            console.log(btcbal);
+            
             var assetbalance = $("#xcpbalance").html();
             var array = assetbalance.split(" ");
             var currentbalance = parseFloat(array[0]);
@@ -362,8 +367,16 @@ $( document ).ready(function() {
             
             var minersfee = 0.0001;
             
-            var totalsend = parseFloat(sendtoamount) + minersfee;
-     
+            if (currenttoken == "BTC") {
+                var totalsend = parseFloat(sendtoamount) + minersfee;
+            
+            } else {
+                var totalsend = parseFloat(sendtoamount);
+            
+            }
+            
+        if (btcbal > 0.0002327) { 
+            
             if (bitcore.Address.isValid(sendtoaddress)){
                 
                 if (isNaN(sendtoamount) == true || sendtoamount <= 0 || $.isNumeric( sendtoamount ) == false) {
@@ -417,7 +430,12 @@ $( document ).ready(function() {
                 $("#sendtokenbutton").html("Refresh to continue");
                 
             }
+        } else {
             
+            $("#sendtoaddress").val("Not enough BTC");
+            $("#sendtokenbutton").html("Refresh to continue");
+            
+        }
             
             
         });
