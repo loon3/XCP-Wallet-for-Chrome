@@ -7,15 +7,15 @@
       "default_icon": "icon-128.png",
       "default_popup": "popup.html"
    },
-   "description": "Chrome Extension wallet for Bitcoin and Counterparty Assets",
+   "description": "Browser wallet for Bitcoin (bitcoin.org) and Counterparty Assets (counterparty.io).",
    "icons": {
       "128": "icon-128.png",
       "16": "icon-16.png",
       "48": "icon-48.png"
    },
    "manifest_version": 2,
-   "name": "XCP Chrome Wallet",
-   "permissions": [ "storage", "http://*/", "clipboardWrite", "clipboardRead" ],
+   "name": "XCP Wallet for Chrome",
+   "permissions": [ "storage", "clipboardWrite", "clipboardRead" ],
    "short_name": "XCP Chrome Wallet",
-   "version": "0.1.1"
+   "version": "0.1"
 }
