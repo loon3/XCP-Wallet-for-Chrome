@@ -1,7 +1,7 @@
-# XCP Chrome Wallet
+# XCP Wallet for Chrome
 
 Chrome Extension Bitcoin/Counterparty Wallet
 
-Currently under development, use at your own risk!
+Currently under development.
 
-Donate BTC or your favorite XCP token to 1LrM4bojLAKfuoFMXkDtVPMGydX1rkaMqH
+Donate BTC or your favorite XCP token to 1MtsJgWebhCv8RP7ADBj7aWeuArzYmHFJA
