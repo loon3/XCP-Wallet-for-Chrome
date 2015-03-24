@@ -412,6 +412,7 @@ function loadAssets(add) {
     
     var xcp_source_html = "http://counterpartychain.io/api/address/"+add;
     
+    $( "#alltransactions" ).html("");
     
     $.getJSON( xcp_source_html, function( data ) {  
         //var assetbalance = parseFloat(data.data[0].balance) + parseFloat(data.data[0].unconfirmed_balance); 
@@ -555,11 +556,7 @@ function loadTransactions(add) {
 
     var source_html = "https://counterpartychain.io/api/transactions/"+add;
     
-    
-    
-    $.getJSON( source_html, function( data ) {
-        
-        $( "#alltransactions" ).html("");
+    $.getJSON( source_html, function( data ) {  
         
         $.each(data.data, function(i, item) {
             
