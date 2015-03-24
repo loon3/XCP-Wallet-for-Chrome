@@ -10,5 +10,5 @@ Donate BTC or your favorite XCP token to 1MtsJgWebhCv8RP7ADBj7aWeuArzYmHFJA
 
 v0.1 - Initial release
 
-v0.11 - Fixed Transaction refreshing with new addresses
+v0.1.1 - Fixed Transaction refreshing with new addresses
       - Added "versions" folder for all new releases
