@@ -38,9 +38,13 @@ function sendBTC(add_from, add_to, sendtotal, transfee) {
     
     var source_html = "https://insight.bitpay.com/api/addr/"+add_from+"/utxo";
     
-    var total_utxo = new Array();   
-    var sendtotal_satoshis = parseFloat(sendtotal) * 100000000;   
-    sendtotal_satoshis.toFixed(0);
+    var total_utxo = new Array();
+    var transfee_satoshis = parseFloat(transfee).toFixed(8) * 100000000; 
+    var sendtotal_satoshis = parseFloat(sendtotal).toFixed(8) * 100000000;   
+    
+    sendtotal_satoshis = Math.round(sendtotal_satoshis);
+
+                
     
     var mnemonic = $("#newpassphrase").html();
     
@@ -49,7 +53,9 @@ function sendBTC(add_from, add_to, sendtotal, transfee) {
     
     $.getJSON( source_html, function( data ) {
         
-        var amountremaining = (parseFloat(sendtotal) + parseFloat(transfee));
+        //var amountremaining = (parseFloat(sendtotal) + parseFloat(transfee));
+        
+        var amountremaining_satoshis = sendtotal_satoshis + transfee_satoshis;
         
         data.sort(function(a, b) {
             return b.amount - a.amount;
@@ -60,10 +66,14 @@ function sendBTC(add_from, add_to, sendtotal, transfee) {
              var txid = data[i].txid;
              var vout = data[i].vout;
              var script = data[i].scriptPubKey;
-             var amount = parseFloat(data[i].amount);
+            
+            
+             var amount_satoshis = parseFloat(data[i].amount).toFixed(8) * 100000000;
+            
+             var amount = amount_satoshis / 100000000;
              
-             amountremaining = amountremaining - amount;            
-             amountremaining.toFixed(8);
+             amountremaining_satoshis = amountremaining_satoshis - amount_satoshis;      
+            
     
              var obj = {
                 "txid": txid,
@@ -77,7 +87,7 @@ function sendBTC(add_from, add_to, sendtotal, transfee) {
               
              //dust limit = 5460 
             
-             if (amountremaining == 0 || amountremaining < -0.00005460) {                                 
+             if (amountremaining_satoshis == 0 || amountremaining_satoshis < -5460) {                                 
                  return false;
              }
              
@@ -85,8 +95,8 @@ function sendBTC(add_from, add_to, sendtotal, transfee) {
         
         console.log(total_utxo);
         
-        if (amountremaining < 0) {
-            var satoshi_change = -(amountremaining.toFixed(8) * 100000000).toFixed(0);
+        if (amountremaining_satoshis < 0) {
+            var satoshi_change = -amountremaining_satoshis;
         } else {
             var satoshi_change = 0;
         }
@@ -98,6 +108,8 @@ function sendBTC(add_from, add_to, sendtotal, transfee) {
         for (i = 0; i < total_utxo.length; i++) {
             transaction.from(total_utxo[i]);
         }
+        
+        
         
         transaction.to(add_to, sendtotal_satoshis);
             
