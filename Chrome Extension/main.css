@@ -201,6 +201,19 @@ body
     border: 3px solid #67B5E0;
 }
 
+.asseticon {
+    height: 48px;
+    width: 48px;
+    float: left;
+    display: inline-block;
+}
+
+.assetinfo {
+    width: 260px;
+    float: right;
+    display: inline-block;
+}
+
 .assetname {
   
     padding: 2px 0 2px 8px;

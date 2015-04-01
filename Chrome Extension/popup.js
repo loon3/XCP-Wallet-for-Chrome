@@ -439,6 +439,10 @@ function loadAssets(add) {
                 if (assetbalance.indexOf(".")==-1) {var divisible = "no";} else {var divisible = "yes";}
             
                 if (assetname.charAt(0) != "A") {
+                    
+                    var iconname = assetname.toLowerCase();
+                    var iconlink = "http://counterpartychain.io/content/images/icons/"+iconname+".png";
+                    
                     var assethtml = "<div class='singleasset'><div class='assetname'>"+assetname+"</div><div class='movetowallet'>Send</div><div class='assetqty'>Balance: "+assetbalance+"</div><div id='assetdivisible' style='display: none;'>"+divisible+"</div></div>";
                 } 
     
