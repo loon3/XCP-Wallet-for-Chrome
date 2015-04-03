@@ -125,6 +125,22 @@ body
     margin-bottom: -12px;
 }
 
+#copyButton 
+{
+    cursor: pointer;
+
+}
+
+#addresscopied
+{
+    display: none;
+	text-align: center;
+	font-style: italic;
+	font-size: 14px;
+    margin-bottom: -12px;
+    cursor: default;
+}
+
 .inputtitle
 {
 	text-align: left;
@@ -223,7 +239,8 @@ body
     display: inline-block;
 }
 .movetowallet {
-    padding: 2px 8px 2px 0;
+    padding: 2px 0 2px 0;
+    margin-right: -15px;
     float: right;
     display: inline-block;
     font-weight: bold;

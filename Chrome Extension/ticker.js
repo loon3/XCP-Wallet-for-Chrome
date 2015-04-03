@@ -99,6 +99,20 @@ $( document ).ready(function() {
     
     });
     
+    $('#copyButton').click(function (){
+        
+        var address = $("#walletaddresses").val();
+        
+        copyToClipboard(address);
+        
+        $('#xcpaddressTitle').hide(); 
+        $('#addresscopied').show();
+        setTimeout(function(){ 
+            $('#addresscopied').hide(); 
+            $('#xcpaddressTitle').show();
+        }, 1500);
+        
+    });
     
     $('#assettransactiontoggle').click(function ()
         { 
@@ -180,7 +194,7 @@ $( document ).ready(function() {
           
         } else {
       
-            var currentaddr = $("#xcpaddress").html();
+            var currentaddr = $("#walletaddresses").val();
             $("#btcbalance").append("<div id='moreBTCinfo'><div style='margin: 20px 0 10px 0; font-size: 10px; font-weight: bold;'>"+currentaddr+"</div><div id='btcqr' style='margin: 10px auto 20px auto; height: 100px; width: 100px;'></div><div>Cost per transaction is 0.0001547 BTC.</div></div>");  
             var qrcode = new QRCode(document.getElementById("btcqr"), {
     			text: currentaddr,
@@ -213,7 +227,7 @@ $( document ).ready(function() {
       var array = assetbalance.split(" ");
       
       
-      var pubkey = $("#xcpaddress").html();
+      var pubkey = $("#walletaddresses").val();
       var currenttoken = $(".currenttoken").html();
       
       getRate(array[0], pubkey, currenttoken);
@@ -224,7 +238,7 @@ $( document ).ready(function() {
   $('#switchtoxcp').click(function ()
   {
       $(".currenttoken").html("XCP");     
-      var pubkey = $("#xcpaddress").html();
+      var pubkey = $("#walletaddresses").val();
       getPrimaryBalance(pubkey);
       $('#allTabs a:first').tab('show');
   });
@@ -232,7 +246,7 @@ $( document ).ready(function() {
 
 //  $('#txHistory').click(function ()
 //  {
-//    var address = $("#xcpaddress").html();
+//    var address = $("#walletaddresses").val();
 //    chrome.tabs.create(
 //    {
 //      url: "http://blockscan.com/address/" + address
@@ -247,7 +261,7 @@ $( document ).ready(function() {
     
   $('#refresharrow').click(function ()
   {
-    var pubkey = $("#xcpaddress").html();
+    var pubkey = $("#walletaddresses").val();
     getPrimaryBalance(pubkey);
   });
     
@@ -261,7 +275,7 @@ $( document ).ready(function() {
       //$(".currenttoken").html("WORKS");
       
       
-      var pubkey = $("#xcpaddress").html();
+      var pubkey = $("#walletaddresses").val();
       
       
       getPrimaryBalance(pubkey);
@@ -275,7 +289,7 @@ $( document ).ready(function() {
   $('#inventoryTab').click(function ()
   {
     
-    var address = $("#xcpaddress").html();
+    var address = $("#walletaddresses").val();
       
     //$("#alltransactions").hide();
       
@@ -349,7 +363,7 @@ $( document ).ready(function() {
             var array = assetbalance.split(" ");
             var currentbalance = parseFloat(array[0]);
       
-            var pubkey = $("#xcpaddress").html();
+            var pubkey = $("#walletaddresses").val();
             var currenttoken = $(".currenttoken").html();
             
             var sendtoaddress = $("#sendtoaddress").val();
