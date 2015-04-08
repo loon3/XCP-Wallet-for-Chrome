@@ -167,10 +167,25 @@ $( document ).ready(function() {
             }    
         });
     
+    $('#broadcastbutton').click( function () {
+        $("#broadcastbox").toggle();
+        if($("#moreBTCinfo").is(":visible")) {
+            $("#moreBTCinfo").hide();
+        }
+        if($("#btcsendbox").is(":visible")) {
+            $("#btcsendbox").hide();
+        }
+        
+    });
+    
+    
     $('#sendAssetButton').click( function () {
         $("#btcsendbox").toggle();
         if($("#moreBTCinfo").is(":visible")) {
             $("#moreBTCinfo").hide();
+        }
+        if($("#broadcastbox").is(":visible")) {
+            $("#broadcastbox").hide();
         }
     });
     
@@ -184,6 +199,9 @@ $( document ).ready(function() {
             if($("#btcsendbox").is(":visible")) {
                 $("#btcsendbox").hide();
             }
+      if($("#broadcastbox").is(":visible")) {
+            $("#broadcastbox").hide();
+        }
       
       
         if ($("#moreBTCinfo").length){
@@ -217,11 +235,17 @@ $( document ).ready(function() {
       
       $("#sendtokenbutton").html("Send Token");
       $("#sendtokenbutton").prop('disabled', false);
+      $("#sendbroadcastbutton").html("Send Broadcast");
+      $("#sendbroadcastbutton").prop('disabled', true);
       $("#sendtoaddress").prop('disabled', false);
       $("#sendtoamount").prop('disabled', false);
       
       $("#sendtoaddress").val("");
       $("#sendtoamount").val("");
+      
+      $("#broadcastmessage").val("");
+      $("#broadcastvalue").val("-1");
+      $("#broadcastfeefraction").val("0");
       
       var assetbalance = $("#xcpbalance").html();
       var array = assetbalance.split(" ");
@@ -349,6 +373,32 @@ $( document ).ready(function() {
             $("#preSign").show();            
         });   
     
+    
+    $('#sendbroadcastbutton').click(function ()
+        {
+            var txsAvailable = $("#txsAvailable").html();
+            var broadcastvalue = $("#broadcastvalue").val();
+            var broadcastfeefraction = $("#broadcastfeefraction").val();
+            
+            if ($.isNumeric(broadcastvalue) == true && $.isNumeric(broadcastfeefraction) == true && txsAvailable > 1) {
+            
+                $("#sendbroadcastbutton").prop('disabled', true);
+                $("#sendbroadcastbutton").html("Sending Broadcast...");
+            
+                var pubkey = $("#walletaddresses").val();
+                var broadcastmessage = $("#broadcastmessage").val();
+                             
+                console.log("sent!");
+
+                var minersfee = 0.0001;
+                var msig_total = 0.000078;  //total btc to multisig output (returned to sender)
+                var mnemonic = $("#newpassphrase").html();
+            
+                sendBroadcast(pubkey, broadcastmessage, broadcastvalue, broadcastfeefraction, msig_total, minersfee, mnemonic);
+            }
+            
+        });
+    
     $('#sendtokenbutton').click(function ()
         {
             $("#sendtokenbutton").html("Sending...");
@@ -473,6 +523,22 @@ $( document ).ready(function() {
             $("#sendtokenbutton").removeAttr("disabled");
         }
         
+        
+        
+    });
+    
+    $(document).on("keyup", '#broadcastmessage', function (event)
+    { 
+        var message = $("#broadcastmessage").val();
+        var broadcastvalue = $("#broadcastvalue").val();
+        var broadcastfeefraction = $("#broadcastfeefraction").val();
+        
+        
+        if (message.length > 0){
+            $("#sendbroadcastbutton").removeAttr("disabled");    
+       	} else { 
+            $('#sendbroadcastbutton').prop('disabled', true);
+        }      
         
         
     });

@@ -17,5 +17,5 @@
    "name": "XCP Wallet for Chrome",
    "permissions": [ "storage", "clipboardWrite", "clipboardRead" ],
    "short_name": "XCP Wallet",
-   "version": "0.1.4"
+   "version": "0.2.0"
 }

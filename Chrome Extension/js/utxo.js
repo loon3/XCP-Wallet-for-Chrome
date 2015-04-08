@@ -5,12 +5,26 @@ function ajax(url, data, rawtx) {
         if (xhr.readyState == 4) {
             console.log(xhr.responseText);
             
-            $("#sendtokenbutton").html("Sent! Refresh to continue...");
-            //$("#sendtokenbutton").prop('disabled', true);
-            
-            var newTxid = rawtotxid(rawtx);
-            
+            var newTxid = rawtotxid(rawtx);        
             console.log(newTxid);
+            
+            if ($("#sendbroadcastbutton").html() == "Sending Broadcast..."){
+                
+                $("#sendbroadcastbutton").html("Sent! Refresh to continue...");
+                
+                $("#sendinfomessage").html("Broadcast will appear after one confirmation");
+                
+            } else {
+                
+                $("#sendtokenbutton").html("Sent! Refresh to continue...");
+                
+                $("#sendinfomessage").html("Balance will update after one confirmation");
+                
+            }
+            
+            $("#sendbroadcastbutton").prop('disabled', true);
+            $("#sendtokenbutton").prop('disabled', true);
+            
             $("#freezeUnconfirmed").css("display", "block");
             $("#mainDisplay").css("display", "none");
             $("#yourtxid").html("<a href='https://blockchain.info/tx/"+newTxid+"'>View Transaction</a>");
