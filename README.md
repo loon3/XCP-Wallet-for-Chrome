@@ -18,4 +18,4 @@ v0.1.4 - Added Asset icons via Counterpartychain.io, copy address to clipboard i
 
 v0.2.0 - Added Broadcast sending
 
-v0.3.0 (in testing, not yet released in Chrome Web Store) - Added Broadcast tab, converted all blockchain.info API calls to chain.so, asset sends now using OP_RETURN for encoding Counterparty data
+v0.3.0 - Added Broadcast tab, converted all blockchain.info API calls to chain.so, asset sends now using OP_RETURN for encoding Counterparty data
