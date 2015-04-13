@@ -67,9 +67,11 @@
   <ul class="nav nav-tabs" id="allTabs">
     <li class="active" id="walletTab"><a id="walletLink" href="#walletPage" data-toggle="tab"><img src="wallet_icon.png" height="24" width="24"></a></li>
     <li id="inventoryTab"><a href="#inventoryPage" data-toggle="tab"><img src="inventory_icon.png" height="24" width="24"></a></li>
+      <li id="broadcastTab"><a href="#broadcastPage" data-toggle="tab"><div align="center" style="height: 24px; width: 24px;"><img src="images/bullhorn_dark.png" height="20" width="20"></div></a></li>
       <li id="signTab"><a href="#signPage" data-toggle="tab"><img src="sign_icon.png" height="24" width="24"></a></li>
     <li><a href="#settingsPage" data-toggle="tab"><img src="key-icon.png" height="24" width="24"></a></li>  
-      <li><a href="#infoPage" data-toggle="tab"><img src="info-icon.png" height="24" width="24"></a></li> 
+<!--      <li><a href="#infoPage" data-toggle="tab"><img src="info-icon.png" height="24" width="24"></a></li> -->
+      
   </ul>
 
   <!-- Tab panes -->
@@ -245,7 +247,7 @@
         <div class="tab-pane" id="infoPage">
             <div style="padding: 10px; text-align: center;">
                 <h2>About</h2>
-                <p>Powered by APIs from Insight.io, Blockchain.info, and Counterpartychain.io</p>
+                <p>Powered by APIs from Insight.io, Chain.so, and Counterpartychain.io</p>
                 <p>XCP Wallet for Chrome is an open source<br>Bitcoin and Counterparty wallet<br>built by Joe Looney (joelooney.org)</p>
                 
                 <p>Source code is available on Github at<br> 
@@ -261,6 +263,12 @@
             
             </div> 
             
+        
+        </div>
+        
+        <div class="tab-pane" id="broadcastPage">
+        <div class="lead" align="center" style="padding-top: 25px; border-bottom: solid 1px #ccc;">Your Broadcasts</div>
+        <div id="broadcastListAll" style="padding-top: 0px; text-align: center;"></div>
         
         </div>
 		

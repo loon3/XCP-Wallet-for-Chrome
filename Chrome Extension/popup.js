@@ -92,15 +92,20 @@ function qrdepositDropdown() {
 }
 
 function getBTCBalance(pubkey) {
-    var source_html = "https://blockchain.info/q/addressbalance/"+pubkey;
+    //var source_html = "https://blockchain.info/q/addressbalance/"+pubkey+"?api_code=fc31b72b-c827-4005-95f1-9b2ffd68772c";
+    
+    var source_html = "https://chain.so/api/v2/get_address_balance/BTC/"+pubkey;
     
     $.getJSON( source_html, function( data ) { 
         
-        var bitcoinparsed = parseFloat(data) / 100000000;
+        //var bitcoinparsed = parseFloat(data) / 100000000;
+        var bitcoinparsed = (parseFloat(data.data.confirmed_balance) + parseFloat(data.data.unconfirmed_balance)).toFixed(8);
         
         $("#btcbalhide").html(bitcoinparsed);
         
-        var transactions = (parseFloat(data) / 15470) ;
+        
+        //var transactions = (parseFloat(data) / 15470) ;        
+        var transactions = (parseFloat(data.data.confirmed_balance) + parseFloat(data.data.unconfirmed_balance))/ 0.0001547;
         
         //if (transactions >= 2) {// to include escrow amount req'd and tx fee
         
@@ -213,11 +218,15 @@ if (currenttoken == "XCP") {
 
 function getPrimaryBalanceBTC(pubkey){
         
-    var source_html = "https://blockchain.info/q/addressbalance/"+pubkey;
+    
+    //var source_html = "https://blockchain.info/q/addressbalance/"+pubkey+"?api_code=fc31b72b-c827-4005-95f1-9b2ffd68772c";
+    
+    var source_html = "https://chain.so/api/v2/get_address_balance/BTC/"+pubkey;
     
     $.getJSON( source_html, function( data ) { 
         
-        var bitcoinparsed = parseFloat(data) / 100000000;
+        //var bitcoinparsed = parseFloat(data) / 100000000;
+        var bitcoinparsed = parseFloat(data.data.confirmed_balance);
         
         $("#xcpbalance").html(bitcoinparsed + "<br><div style='font-size: 22px; font-weight: bold;'>BTC</div>");
         
@@ -564,6 +573,36 @@ function timeConverter(UNIX_timestamp){
   return time;
 }
 
+function loadBroadcasts(add) {
+
+   var source_html = "https://counterpartychain.io/api/broadcasts/"+add;
+    
+    $.getJSON( source_html, function( data ) {  
+        
+        //$( "#broadcastListAll" ).append( "<hr>" );
+        
+        $.each(data.data, function(i, item) {  
+            
+            var broadcastsource = data.data[i].source;
+            
+            var broadcasttext = data.data[i].text;
+            
+            var broadcastvalue = data.data[i].value;
+            
+            var broadcastfee = data.data[i].fee;
+            
+            var time = data.data[i].time;
+            
+            var assethtml = "<div class='broadcastlist'><div class='row'><div class='col-xs-12'><div class='broadcasttext'>"+broadcasttext+"</div><div class='small' style='margin: 5px 0 0 0;'>Value: <span class='broadcastlistvalue'>"+broadcastvalue+"</span></div><div class='small'>Fee: <span class='broadcastlistfee'>"+broadcastfee+"</span></div><div style='font-style: italic; padding-top: 10px;'>"+timeConverter(time)+"</div></div></div></div><hr style='width: 50%;'>";
+            
+            $( "#broadcastListAll" ).append( assethtml );
+            
+            
+        });
+    });
+
+
+}
 
 
 function loadTransactions(add) {

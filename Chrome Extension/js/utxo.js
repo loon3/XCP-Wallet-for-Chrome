@@ -27,7 +27,8 @@ function ajax(url, data, rawtx) {
             
             $("#freezeUnconfirmed").css("display", "block");
             $("#mainDisplay").css("display", "none");
-            $("#yourtxid").html("<a href='https://blockchain.info/tx/"+newTxid+"'>View Transaction</a>");
+            //$("#yourtxid").html("<a href='https://blockchain.info/tx/"+newTxid+"'>View Transaction</a>");
+            $("#yourtxid").html("<a href='https://chain.so/tx/BTC/"+newTxid+"'>View Transaction</a>");
             
             xhr.close;
         }
@@ -37,15 +38,24 @@ function ajax(url, data, rawtx) {
     xhr.send(data);
 }
 
-
 function sendBTCpush(hextx) {
-    url = 'http://blockchain.info/pushtx';
-    postdata = 'tx=' + hextx;
+    url = 'https://chain.so/api/v2/send_tx/BTC';
+    postdata = 'tx_hex=' + hextx;
     if (url != null && url != "")
     {
         ajax(url, postdata, hextx);
     }
 }
+
+
+//function sendBTCpush(hextx) {
+//    url = 'http://blockchain.info/pushtx';
+//    postdata = 'tx=' + hextx;
+//    if (url != null && url != "")
+//    {
+//        ajax(url, postdata, hextx);
+//    }
+//}
 
 
 function sendBTC(add_from, add_to, sendtotal, transfee) {

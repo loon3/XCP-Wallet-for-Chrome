@@ -21,7 +21,10 @@ $( document ).ready(function() {
     
     //on open
     var manifest = chrome.runtime.getManifest();
-    $("#nameversion").html("XCP Wallet for Chrome v" + manifest.version);
+    
+    var infobutton = "<div style='display: inline-block; padding-left: 5px;'><a id='infoButton' href='#infoPage' data-toggle='tab'><img src='info-icon.png' height='16' width='16'></a></div>";
+
+       $("#nameversion").html("XCP Wallet for Chrome v" + manifest.version + infobutton);
     
        var JsonFormatter = {
         stringify: function (cipherParams) {
@@ -246,6 +249,7 @@ $( document ).ready(function() {
       $("#broadcastmessage").val("");
       $("#broadcastvalue").val("-1");
       $("#broadcastfeefraction").val("0");
+      $("#broadcastbox").css("display", "none");
       
       var assetbalance = $("#xcpbalance").html();
       var array = assetbalance.split(" ");
@@ -277,17 +281,17 @@ $( document ).ready(function() {
 //    });
 //  });
 
-  $('#contact').click(function ()
-  {
-    chrome.tabs.create({ url: "mailto:support@letstalkbitcoin.com" });
-  });
+//  $('#contact').click(function ()
+//  {
+//    chrome.tabs.create({ url: "mailto:support@letstalkbitcoin.com" });
+//  });
 
     
-  $('#refresharrow').click(function ()
-  {
-    var pubkey = $("#walletaddresses").val();
-    getPrimaryBalance(pubkey);
-  });
+//  $('#refresharrow').click(function ()
+//  {
+//    var pubkey = $("#walletaddresses").val();
+//    getPrimaryBalance(pubkey);
+//  });
     
   
    $(document).on("click", '.movetowallet', function (event)
@@ -321,6 +325,14 @@ $( document ).ready(function() {
     
       
   });  
+   
+ $('#broadcastTab').click(function ()
+  {    
+    var address = $("#walletaddresses").val();
+    $("#broadcastListAll").html("");
+    loadBroadcasts(address);
+    //loadBroadcasts();
+});
     
    $(document).on("click", '#encryptPasswordButton', function (event) 
     {
@@ -470,7 +482,11 @@ $( document ).ready(function() {
                             
                             $("#sendtokenbutton").html("Sending...");
                             
-                            sendXCP(pubkey, sendtoaddress, currenttoken, sendtoamount, btc_total, msig_total, minersfee, mnemonic); 
+                            //sendXCP(pubkey, sendtoaddress, currenttoken, sendtoamount, btc_total, msig_total, minersfee, mnemonic); 
+                            
+                            sendXCP_opreturn(pubkey, sendtoaddress, currenttoken, sendtoamount, btc_total, minersfee, mnemonic); 
+                            
+                            
                             
                             //console.log(sendtoamount);
                             
