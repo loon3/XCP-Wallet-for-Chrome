@@ -226,7 +226,7 @@ function getPrimaryBalanceBTC(pubkey){
     $.getJSON( source_html, function( data ) { 
         
         //var bitcoinparsed = parseFloat(data) / 100000000;
-        var bitcoinparsed = parseFloat(data.data.confirmed_balance);
+        var bitcoinparsed = (parseFloat(data.data.confirmed_balance) + parseFloat(data.data.unconfirmed_balance)).toFixed(8);
         
         $("#xcpbalance").html(bitcoinparsed + "<br><div style='font-size: 22px; font-weight: bold;'>BTC</div>");
         
