@@ -1,12 +1,9 @@
-# XCP Wallet for Chrome
+### Deprecated 1/16/16
+Go to https://github.com/loon3/XCP-Wallet
 
-Chrome Extension Bitcoin/Counterparty Wallet
+---
 
-Currently under development.
-
-Donate BTC or your favorite XCP asset to 1MtsJgWebhCv8RP7ADBj7aWeuArzYmHFJA
-
-## Release Notes
+##### Release Notes
 
 v0.1 - Initial release
 
